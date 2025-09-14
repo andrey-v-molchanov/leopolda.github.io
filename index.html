@@ -17,6 +17,7 @@
       color: white;
       padding: 1rem 2rem;
       text-align: center;
+      position: relative;
     }
     header .intro {
       margin-top: 1rem;
@@ -31,6 +32,21 @@
     }
     header .intro p {
       margin: 0.3em 0;
+    }
+    #lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+    #lang-switch button {
+      margin-left: 5px;
+      background: white;
+      color: #47276D;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
     }
     main {
       padding: 2rem;
@@ -56,40 +72,141 @@
 </head>
 <body>
   <header>
-    <h1>BIURO RACHUNKOWE LEOPOLDA Sp. z o.o.</h1>
-    <p>Oficjalna strona informacyjna</p>
-    <div class="intro">
-      <p>📊 Kompleksowa księgowość dla małych i średnich firm.</p>
-      <p>👥 Pełna obsługa księgowa i kadrowa (WDT, WNT, Eksport, Import).</p>
-      <p>🎓 Usługi świadczą certyfikowani specjaliści.</p>
-      <p>💬 Jesteśmy otwarci na Państwa propozycje!</p>
+    <div id="lang-switch">
+      <button onclick="setLang('pl')">PL</button>
+      <button onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('by')">BY</button>
     </div>
+    <h1 id="title">BIURO RACHUNKOWE LEOPOLDA Sp. z o.o.</h1>
+    <p id="subtitle">Oficjalna strona informacyjna</p>
+    <div class="intro" id="intro"></div>
   </header>
   <main>
-    <h2>Dane rejestrowe</h2>
-    <ul>
-      <li><strong>KRS:</strong> 0001145506</li>
-      <li><strong>NIP:</strong> 8971947031</li>
-      <li><strong>REGON:</strong> 540484190</li>
-      <li><strong>Forma prawna:</strong> Spółka z ograniczoną odpowiedzialnością</li>
-      <li><strong>Adres:</strong> ul. Ofiar Oświęcimskich 19/207, 50-069 Wrocław</li>
-      <li><strong>Data rejestracji:</strong> 20 grudnia 2024</li>
-      <li><strong>Kapitał zakładowy:</strong> 5 000 PLN</li>
-    </ul>
-    <h2>Przedmiot działalności</h2>
-    <p>Główna PKD: 69.20.Z – działalność rachunkowo-księgowa; doradztwo podatkowe</p>
-    <p>Pozostałe PKD: 63, 69, 70, 78, 82, 85 – usługi informacyjne, administracyjne, kadrowe, edukacyjne itd.</p>
-    <h2>Zarząd i reprezentacja</h2>
-    <ul>
-      <li>Helena Mołczanowa – Prezes Zarządu</li>
-      <li>Yuliya Liudchyk – Członek Zarządu</li>
-    </ul>
-    <p><em>Do składania oświadczeń w imieniu spółki jest upoważniony każdy z członków zarządu samodzielnie.</em></p>
-    <h2>Kontakt</h2>
-    <p>Adres e-mail: <a href="mailto:biuro.leopolda@gmail.com">biuro.leopolda@gmail.com</a></p>
+    <h2 id="section-register">Dane rejestrowe</h2>
+    <ul id="register-list"></ul>
+
+    <h2 id="section-activity">Przedmiot działalności</h2>
+    <div id="activity"></div>
+
+    <h2 id="section-board">Zarząd i reprezentacja</h2>
+    <ul id="board-list"></ul>
+    <p id="representation"></p>
+
+    <h2 id="section-contact">Kontakt</h2>
+    <p id="contact"></p>
   </main>
   <footer>
     &copy; 2025 BIURO RACHUNKOWE LEOPOLDA Sp. z o.o.
   </footer>
+
+  <script>
+    const translations = {
+      pl: {
+        title: "BIURO RACHUNKOWE LEOPOLDA Sp. z o.o.",
+        subtitle: "Oficjalna strona informacyjna",
+        intro: `
+          <p>📊 Kompleksowa księgowość dla małych i średnich firm.</p>
+          <p>👥 Pełna obsługa księgowa i kadrowa (WDT, WNT, Eksport, Import).</p>
+          <p>🎓 Usługi świadczą certyfikowani specjaliści.</p>
+          <p>💬 Jesteśmy otwarci na Państwa propozycje!</p>
+        `,
+        register: `
+          <li><strong>KRS:</strong> 0001145506</li>
+          <li><strong>NIP:</strong> 8971947031</li>
+          <li><strong>REGON:</strong> 540484190</li>
+          <li><strong>Forma prawna:</strong> Spółka z ograniczoną odpowiedzialnością</li>
+          <li><strong>Adres:</strong> ul. Ofiar Oświęcimskich 19/207, 50-069 Wrocław</li>
+          <li><strong>Data rejestracji:</strong> 20 grudnia 2024</li>
+          <li><strong>Kapitał zakładowy:</strong> 5 000 PLN</li>
+        `,
+        activity: `
+          <p>Główna PKD: 69.20.Z – działalność rachunkowo-księgowa; doradztwo podatkowe</p>
+          <p>Pozostałe PKD: 63, 69, 70, 78, 82, 85 – usługi informacyjne, administracyjne, kadrowe, edukacyjne itd.</p>
+        `,
+        board: `
+          <li>Helena Mołczanowa – Prezes Zarządu</li>
+          <li>Yuliya Liudchyk – Członek Zarządu</li>
+        `,
+        representation: "<em>Do składania oświadczeń w imieniu spółki jest upoważniony każdy z członków zarządu samodzielnie.</em>",
+        contact: 'Adres e-mail: <a href="mailto:biuro.leopolda@gmail.com">biuro.leopolda@gmail.com</a>'
+      },
+      ru: {
+        title: "БУХГАЛТЕРСКОЕ БЮРО LEOPOLDA ООО",
+        subtitle: "Официальная информационная страница",
+        intro: `
+          <p>📊 Комплексное бухгалтерское обслуживание малых и средних предприятий.</p>
+          <p>👥 Полное бухгалтерское и кадровое сопровождение (WDT, WNT, Экспорт, Импорт).</p>
+          <p>🎓 Услуги оказывают сертифицированные специалисты.</p>
+          <p>💬 Мы открыты для ваших предложений!</p>
+        `,
+        register: `
+          <li><strong>KRS:</strong> 0001145506</li>
+          <li><strong>ИНН (NIP):</strong> 8971947031</li>
+          <li><strong>REGON:</strong> 540484190</li>
+          <li><strong>Правовая форма:</strong> Общество с ограниченной ответственностью</li>
+          <li><strong>Адрес:</strong> ул. Ofiar Oświęcimskich 19/207, 50-069 Вроцлав</li>
+          <li><strong>Дата регистрации:</strong> 20 декабря 2024</li>
+          <li><strong>Уставный капитал:</strong> 5 000 PLN</li>
+        `,
+        activity: `
+          <p>Основной вид деятельности (PKD): 69.20.Z – бухгалтерский учет и налоговое консультирование</p>
+          <p>Прочие PKD: 63, 69, 70, 78, 82, 85 – информационные, административные, кадровые, образовательные услуги и др.</p>
+        `,
+        board: `
+          <li>Хелена Молчановa – Президент правления</li>
+          <li>Юлия Людчик – Член правления</li>
+        `,
+        representation: "<em>Право представлять компанию имеет каждый член правления самостоятельно.</em>",
+        contact: 'Эл. почта: <a href="mailto:biuro.leopolda@gmail.com">biuro.leopolda@gmail.com</a>'
+      },
+      by: {
+        title: "БЮРО БУХГАЛТЭРЫІ LEOPOLDA ТАА",
+        subtitle: "Афіцыйная інфармацыйная старонка",
+        intro: `
+          <p>📊 Комплексная бухгалтэрыя для малых і сярэдніх прадпрыемстваў.</p>
+          <p>👥 Поўнае бухгалтарскае і кадравае абслугоўванне (WDT, WNT, Экспарт, Імпарт).</p>
+          <p>🎓 Паслугі аказваюць сертыфікаваныя спецыялісты.</p>
+          <p>💬 Мы адкрыты для вашых прапаноў!</p>
+        `,
+        register: `
+          <li><strong>KRS:</strong> 0001145506</li>
+          <li><strong>ІНН (NIP):</strong> 8971947031</li>
+          <li><strong>REGON:</strong> 540484190</li>
+          <li><strong>Прававая форма:</strong> Таварыства з абмежаванай адказнасцю</li>
+          <li><strong>Адрас:</strong> вул. Ofiar Oświęcimskich 19/207, 50-069 Уроцлаў</li>
+          <li><strong>Дата рэгістрацыі:</strong> 20 снежня 2024</li>
+          <li><strong>Статутны капітал:</strong> 5 000 PLN</li>
+        `,
+        activity: `
+          <p>Асноўны PKD: 69.20.Z – бухгалтарскі ўлік; падатковае кансультаванне</p>
+          <p>Іншыя PKD: 63, 69, 70, 78, 82, 85 – інфармацыйныя, адміністрацыйныя, кадравыя, адукацыйныя паслугі і інш.</p>
+        `,
+        board: `
+          <li>Хелена Молчанава – Прэзідэнт кіравання</li>
+          <li>Юлія Людчык – Член кіравання</li>
+        `,
+        representation: "<em>Кожны член кіравання мае права прадстаўляць кампанію самастойна.</em>",
+        contact: 'Эл. пошта: <a href="mailto:biuro.leopolda@gmail.com">biuro.leopolda@gmail.com</a>'
+      }
+    };
+
+    function setLang(lang) {
+      const t = translations[lang] || translations.pl;
+      document.getElementById("title").innerHTML = t.title;
+      document.getElementById("subtitle").innerHTML = t.subtitle;
+      document.getElementById("intro").innerHTML = t.intro;
+      document.getElementById("register-list").innerHTML = t.register;
+      document.getElementById("activity").innerHTML = t.activity;
+      document.getElementById("board-list").innerHTML = t.board;
+      document.getElementById("representation").innerHTML = t.representation;
+      document.getElementById("contact").innerHTML = t.contact;
+    }
+
+    // auto-detect
+    const userLang = navigator.language.slice(0,2);
+    if (userLang === "ru") setLang("ru");
+    else if (userLang === "be" || userLang === "by") setLang("by");
+    else setLang("pl");
+  </script>
 </body>
 </html>
